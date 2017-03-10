@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.sparelaptop3.xylockphone.CreateUpdate">
+    tools:context="com.example.sparelaptop3.xylockphone.CreateUpdate"
+    tools:layout_editor_absoluteY="73dp"
+    tools:layout_editor_absoluteX="0dp">
 
     <ImageButton
         android:id="@+id/imageButton"
         android:layout_width="wrap_content"
         android:layout_height="295dp"
-        app:srcCompat="@drawable/XylKey"
+        app:srcCompat="@drawable/xylkey"
         tools:layout_editor_absoluteX="66dp"
         tools:layout_editor_absoluteY="8dp" />
 
@@ -18,7 +20,7 @@
         android:id="@+id/imageButton3"
         android:layout_width="wrap_content"
         android:layout_height="295dp"
-        app:srcCompat="@drawable/XylKey"
+        app:srcCompat="@drawable/xylkey"
         tools:layout_editor_absoluteX="133dp"
         tools:layout_editor_absoluteY="8dp" />
 
@@ -26,7 +28,7 @@
         android:id="@+id/imageButton2"
         android:layout_width="wrap_content"
         android:layout_height="295dp"
-        app:srcCompat="@drawable/XylKey"
+        app:srcCompat="@drawable/xylkey"
         tools:layout_editor_absoluteX="200dp"
         tools:layout_editor_absoluteY="8dp" />
 
@@ -34,7 +36,7 @@
         android:id="@+id/imageButton5"
         android:layout_width="wrap_content"
         android:layout_height="295dp"
-        app:srcCompat="@drawable/XylKey"
+        app:srcCompat="@drawable/xylkey"
         tools:layout_editor_absoluteX="263dp"
         tools:layout_editor_absoluteY="8dp" />
 
@@ -42,7 +44,7 @@
         android:id="@+id/imageButton6"
         android:layout_width="wrap_content"
         android:layout_height="295dp"
-        app:srcCompat="@drawable/XylKey"
+        app:srcCompat="@drawable/xylkey"
         tools:layout_editor_absoluteX="330dp"
         tools:layout_editor_absoluteY="8dp" />
 
@@ -50,7 +52,7 @@
         android:id="@+id/imageButton7"
         android:layout_width="wrap_content"
         android:layout_height="295dp"
-        app:srcCompat="@drawable/XylKey"
+        app:srcCompat="@drawable/xylkey"
         tools:layout_editor_absoluteX="397dp"
         tools:layout_editor_absoluteY="8dp" />
 
@@ -58,7 +60,7 @@
         android:id="@+id/imageButton8"
         android:layout_width="wrap_content"
         android:layout_height="295dp"
-        app:srcCompat="@drawable/XylKey"
+        app:srcCompat="@drawable/xylkey"
         tools:layout_editor_absoluteX="464dp"
         tools:layout_editor_absoluteY="8dp" />
 
@@ -66,7 +68,7 @@
         android:id="@+id/imageButton9"
         android:layout_width="wrap_content"
         android:layout_height="295dp"
-        app:srcCompat="@drawable/XylKey"
+        app:srcCompat="@drawable/xylkey"
         tools:layout_editor_absoluteX="531dp"
         tools:layout_editor_absoluteY="8dp" />
 
@@ -74,7 +76,15 @@
         android:id="@+id/imageButton4"
         android:layout_width="wrap_content"
         android:layout_height="295dp"
-        app:srcCompat="@drawable/XylKey"
-        tools:layout_editor_absoluteX="-2dp"
+        app:srcCompat="@drawable/xylkey"
+        tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="8dp" />
+
+    <GridLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp">
+
+    </GridLayout>
 </android.support.constraint.ConstraintLayout>
