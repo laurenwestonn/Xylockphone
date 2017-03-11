@@ -18,6 +18,8 @@ import java.util.LinkedList;
 
 public class MainMenu extends AppCompatActivity {
 
+    PasswordManager pwmgr;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +28,7 @@ public class MainMenu extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
        //Instantiate password manager first so that any existing passwords can be retrieved
-        PasswordManager pwmgr = new PasswordManager(this);
+        pwmgr = new PasswordManager(this);
         Instrument i = new Xylophone();
         Password pass = new Password(i);
         LinkedList<Note> notes = new LinkedList<Note>();
@@ -55,7 +57,9 @@ public class MainMenu extends AppCompatActivity {
     }
 
     public void toView(View view) {
-        startActivity(new Intent(this, View.class));
+        Intent i = new Intent(this, Display.class);
+        i.putExtra("pwdmgr", pwmgr);
+        startActivity(i);
     }
 
     @Override

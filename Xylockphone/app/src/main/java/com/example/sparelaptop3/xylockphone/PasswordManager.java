@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.*;
 
 import android.content.Context;
@@ -14,7 +15,7 @@ import android.support.v7.app.AppCompatActivity;
  * Created by SPARELAPTOP1 on 10/03/2017.
  */
 
-public class PasswordManager {
+public class PasswordManager implements Serializable {
 
     private static AppCompatActivity app;
 
