@@ -1,13 +1,10 @@
 package com.example.sparelaptop3.xylockphone;
 
-import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
+import android.view.View;
 import android.widget.ImageButton;
-
-import java.util.logging.Logger;
 
 public class CreateUpdate extends AppCompatActivity {
 
@@ -17,23 +14,28 @@ public class CreateUpdate extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_update);
-    }
 
-    public void declarePressedNote (View view) {
+        ImageButton bA = (ImageButton) findViewById(R.id.XyA);
+        ImageButton bC = (ImageButton) findViewById(R.id.XyC);
+        ImageButton bD = (ImageButton) findViewById(R.id.XyD);
+        ImageButton bE = (ImageButton) findViewById(R.id.XyE);
+        ImageButton bF = (ImageButton) findViewById(R.id.XyF);
+        ImageButton bG = (ImageButton) findViewById(R.id.XyG);
 
-        //Get the name of the key that was pressed e.g. XyA
-        //Button btnKey = (Button) view;
-        //String buttonName = btnKey.getText().toString();
+        View.OnClickListener declarePressedKey = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        //Remove this cheat to make the code work, need to actually get the name of the button clicked
-        String buttonName = "XyA";
+                char strNote = getResources().getResourceEntryName(v.getId()).charAt(2);
+                Log.d(TAG, strNote + " was clicked");
+            }
+        };
 
-        //Convert the name of the key to be the name of the note
-        //e.g. A... get the third character, this is the note name
-        char strNote = buttonName.charAt(2);
-
-        //Print out/log which one was pressed
-        Log.d(TAG, strNote + " was clicked");
-
+        bA.setOnClickListener(declarePressedKey);
+        bC.setOnClickListener(declarePressedKey);
+        bD.setOnClickListener(declarePressedKey);
+        bE.setOnClickListener(declarePressedKey);
+        bF.setOnClickListener(declarePressedKey);
+        bG.setOnClickListener(declarePressedKey);
     }
 }
