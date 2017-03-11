@@ -13,9 +13,10 @@
         android:layout_above="@+id/notesPlayed"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_margin="5dp"
         android:background="@android:color/background_light"
         android:elevation="@dimen/fab_margin"
-        android:scaleType="centerInside"
+        android:scaleType="fitXY"
         app:srcCompat="@drawable/xylkey" />
 
     <ImageButton
@@ -27,7 +28,8 @@
         android:layout_toRightOf="@+id/XyC"
         android:background="@android:color/background_light"
         android:elevation="@dimen/fab_margin"
-        android:scaleType="centerInside"
+        android:scaleType="centerCrop"
+        android:layout_margin="5dp"
         app:srcCompat="@drawable/xylkey" />
 
     <ImageButton
@@ -40,7 +42,8 @@
         android:layout_toRightOf="@+id/XyD"
         android:background="@android:color/background_light"
         android:elevation="@dimen/fab_margin"
-        android:scaleType="centerInside"
+        android:scaleType="centerCrop"
+        android:layout_margin="5dp"
         app:srcCompat="@drawable/xylkey" />
 
     <ImageButton
@@ -52,7 +55,8 @@
         android:layout_toRightOf="@+id/XyE"
         android:background="@android:color/background_light"
         android:elevation="@dimen/fab_margin"
-        android:scaleType="centerInside"
+        android:scaleType="centerCrop"
+        android:layout_margin="5dp"
         app:srcCompat="@drawable/xylkey" />
 
     <ImageButton
@@ -64,7 +68,8 @@
         android:layout_toRightOf="@+id/XyF"
         android:background="@android:color/background_light"
         android:elevation="@dimen/fab_margin"
-        android:scaleType="centerInside"
+        android:scaleType="centerCrop"
+        android:layout_margin="5dp"
         app:srcCompat="@drawable/xylkey" />
 
     <ImageButton
@@ -76,7 +81,8 @@
         android:layout_toRightOf="@+id/XyG"
         android:background="@android:color/background_light"
         android:elevation="@dimen/fab_margin"
-        android:scaleType="centerInside"
+        android:scaleType="centerCrop"
+        android:layout_margin="5dp"
         app:srcCompat="@drawable/xylkey" />
 
     <Button
@@ -87,21 +93,21 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="@drawable/icon_play"
-        android:backgroundTint="@color/colorPrimary" />
+        android:backgroundTint="white" />
 
     <Button
         android:id="@+id/record"
         android:layout_width="45dp"
         android:layout_height="45dp"
+        android:layout_below="@+id/XyC"
+        android:layout_margin="11dp"
+        android:layout_toEndOf="@+id/play"
+        android:layout_toRightOf="@+id/play"
         android:background="@drawable/icon_record"
-        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="white"
         android:gravity="center_vertical"
         android:onClick="onRecord"
-        android:paddingBottom="15dp"
-        android:layout_below="@+id/XyC"
-        android:layout_toRightOf="@+id/play"
-        android:layout_toEndOf="@+id/play"
-        android:layout_margin="11dp"/>
+        android:paddingBottom="15dp" />
 
     <TextView
         android:id="@+id/notesPlayed"
@@ -112,11 +118,12 @@
         android:layout_toLeftOf="@+id/save"
         android:layout_toRightOf="@+id/record"
         android:layout_toStartOf="@+id/save"
-        android:text="@string/notesPlayed"
-        android:textSize="36sp"
         android:gravity="center_vertical"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp"/>
+        android:paddingRight="20dp"
+        android:text="@string/notesPlayed"
+        android:textColor="@android:color/background_light"
+        android:textSize="36sp" />
 
     <Button
         android:id="@+id/save"
@@ -125,7 +132,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:layout_margin="7dp"
         android:background="@drawable/icon_save"
-        android:backgroundTint="@color/colorPrimary"
-        android:layout_margin="7dp"/>
+        android:backgroundTint="white" />
 </RelativeLayout>
