@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 import org.billthefarmer.mididriver.MidiDriver;
 import android.view.MotionEvent;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class CreateUpdate extends AppCompatActivity implements View.OnTouchListener{
 
@@ -33,6 +34,10 @@ public class CreateUpdate extends AppCompatActivity implements View.OnTouchListe
 
                 char strNote = getResources().getResourceEntryName(v.getId()).charAt(2);
                 Log.d(TAG, strNote + " was clicked");
+
+                TextView notesPlayed = (TextView) findViewById(R.id.notesPlayed);
+
+                notesPlayed.setText(notesPlayed.getText() + ", " + strNote);
             }
         };
 
