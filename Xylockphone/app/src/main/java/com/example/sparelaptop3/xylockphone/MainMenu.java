@@ -39,15 +39,6 @@ public class MainMenu extends AppCompatActivity {
         final String returned2;
         if (pass.ComparePassword(notes2)) returned2 = "true";
         else returned2 = "false";
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, returned + ", " + returned2, Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     public void toCreate(View view) {
