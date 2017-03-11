@@ -1,6 +1,7 @@
 package com.example.sparelaptop3.xylockphone;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.LinkedList;
 
@@ -39,6 +41,13 @@ public class MainMenu extends AppCompatActivity {
         final String returned2;
         if (pass.ComparePassword(notes2)) returned2 = "true";
         else returned2 = "false";
+
+        //Get a nice font
+        TextView tx = (TextView)findViewById(R.id.appName);
+
+        Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/becca.ttf");
+
+        tx.setTypeface(custom_font);
     }
 
     public void toCreate(View view) {
