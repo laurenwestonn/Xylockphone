@@ -12,7 +12,10 @@
         android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:background="@android:color/background_light"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:elevation="@dimen/fab_margin"
+        android:layout_above="@+id/notesPlayed"
         app:srcCompat="@drawable/xylkey" />
 
     <ImageButton
@@ -22,6 +25,8 @@
         android:scaleType="fitXY"
         android:background="@android:color/background_light"
         android:layout_toRightOf="@+id/XyC"
+        android:layout_toEndOf="@+id/XyC"
+        android:layout_above="@+id/notesPlayed"
         android:elevation="@dimen/fab_margin"
         app:srcCompat="@drawable/xylkey" />
 
@@ -32,8 +37,9 @@
         android:scaleType="fitXY"
         android:background="@android:color/background_light"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/XyD"
         android:layout_toRightOf="@+id/XyD"
+        android:layout_toEndOf="@+id/XyD"
+        android:layout_above="@+id/notesPlayed"
         android:elevation="@dimen/fab_margin"
         app:srcCompat="@drawable/xylkey" />
 
@@ -44,6 +50,8 @@
         android:scaleType="fitXY"
         android:background="@android:color/background_light"
         android:layout_toRightOf="@+id/XyE"
+        android:layout_toEndOf="@+id/XyE"
+        android:layout_above="@+id/notesPlayed"
         android:elevation="@dimen/fab_margin"
         app:srcCompat="@drawable/xylkey" />
 
@@ -54,6 +62,8 @@
         android:scaleType="fitXY"
         android:background="@android:color/background_light"
         android:layout_toRightOf="@+id/XyF"
+        android:layout_toEndOf="@+id/XyF"
+        android:layout_above="@+id/notesPlayed"
         android:elevation="@dimen/fab_margin"
         app:srcCompat="@drawable/xylkey" />
 
@@ -64,6 +74,15 @@
         android:scaleType="fitXY"
         android:background="@android:color/background_light"
         android:layout_toRightOf="@+id/XyG"
+        android:layout_toEndOf="@+id/XyG"
+        android:layout_above="@+id/notesPlayed"
         android:elevation="@dimen/fab_margin"
         app:srcCompat="@drawable/xylkey" />
+
+    <TextView
+        android:id="@+id/notesPlayed"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:text="@string/notesPlayed"/>
 </RelativeLayout>
