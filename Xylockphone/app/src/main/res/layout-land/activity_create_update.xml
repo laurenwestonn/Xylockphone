@@ -94,7 +94,7 @@
         android:layout_alignParentStart="true"
         android:background="@drawable/icon_play"
         android:backgroundTint="@android:color/background_light"
-        android:onClick="onPlay" />
+        android:onClick="onPlayButton" />
 
     <Button
         android:id="@+id/record"
@@ -107,7 +107,7 @@
         android:background="@drawable/icon_record"
         android:backgroundTint="@android:color/background_light"
         android:gravity="center_vertical"
-        android:onClick="onRecord"
+        android:onClick="onRecordButton"
         android:paddingBottom="15dp" />
 
     <TextView
@@ -135,6 +135,6 @@
         android:layout_alignParentRight="true"
         android:layout_margin="7dp"
         android:background="@drawable/icon_save"
-        android:onClick="onSave"
+        android:onClick="onSaveButton"
         android:backgroundTint="@android:color/background_light" />
 </RelativeLayout>

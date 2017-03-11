@@ -125,11 +125,93 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
         return false;
     }*/
 
-    public void onRecord(View v) {
+    public void playNote(char noteChar) {
+        switch (noteChar) {
+            case 'A': midiSynth.playNote(A);
+                break;
+            case 'C': midiSynth.playNote(C);
+                break;
+            case 'D': midiSynth.playNote(D);
+                break;
+            case 'E': midiSynth.playNote(E);
+                break;
+            case 'G': midiSynth.playNote(G);
+                break;
+            case 'F': midiSynth.playNote(F);
+                break;
+        }
+    }
+
+    //=================================BUTTON STATE METHODS===========================
+    //BUTTON CLICK METHODS=========
+    public void onPlayButton(View v) {
+        if (findViewById(R.id.play).getBackground().getConstantState() ==
+                getResources().getDrawable(R.drawable.icon_play).getConstantState())
+            setPlay(v); //Start music, disallow key presses, retain pw
+        else if (findViewById(R.id.play).getBackground().getConstantState() ==
+                getResources().getDrawable(R.drawable.icon_stop).getConstantState())
+            setIdle(v); //Stop music, allow key presses, retain pw
+    }
+
+    public void onRecordButton(View v) {
+        if (findViewById(R.id.record).getBackground().getConstantState() ==
+                getResources().getDrawable(R.drawable.icon_record).getConstantState())
+            setRecord(v);   //Stop music if playing, allow key presses, append to PW
+        else if (findViewById(R.id.record).getBackground().getConstantState() ==
+                getResources().getDrawable(R.drawable.icon_stop).getConstantState())
+            setIdle(v);     //Keep music off, allow key presses, retain pw
+    }
+
+    public void onSaveButton(View v) {
+        //You can only click the save button if you're allowed to save
+        setSave(v);
+    }
+
+    //STATE METHODS=========
+    public void setPlay(View v) {
+        //Start music
+
+        // disallow key presses
+
+        // disallow saving
+
+        //Change icon to play
+        v.setBackgroundResource(R.drawable.icon_play);
+        //Change record button to record
+        findViewById(R.id.record).setBackgroundResource(R.drawable.icon_record);
+
+        CharSequence notesPlayed = ((TextView) findViewById(R.id.notesPlayed)).getText();
+        for (int index = 0; index < notesPlayed.length(); index+=2) {
+            playNote(notesPlayed.charAt(index));
+        }
+    }
+
+    public void setRecord(View v) {
+        //Stop music if playing
+
+        // allow key presses
+
+        // disallow saving
+
+        // append to PW
+
+        //((TextView) findViewById(R.id.notesPlayed)).setText("");
+    }
+
+    public void setIdle(View v) {
+        //Stop music if playing
+
+        // allow key presses
+
+        //Allow saving
+
+        //Change icon to stop
+        v.setBackgroundResource(R.drawable.icon_stop);
+
         ((TextView) findViewById(R.id.notesPlayed)).setText("");
     }
 
-    public void onSave(View v) {
+    public void setSave(View v) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter Password Name");
 
@@ -153,29 +235,5 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
             }
         });
         builder.show();
-    }
-
-    public void onPlay(View v) {
-        CharSequence notesPlayed = ((TextView) findViewById(R.id.notesPlayed)).getText();
-        for (int index = 0; index < notesPlayed.length(); index+=2) {
-            playNote(notesPlayed.charAt(index));
-        }
-    }
-
-    public void playNote(char noteChar) {
-        switch (noteChar) {
-            case 'A': midiSynth.playNote(A);
-                break;
-            case 'C': midiSynth.playNote(C);
-                break;
-            case 'D': midiSynth.playNote(D);
-                break;
-            case 'E': midiSynth.playNote(E);
-                break;
-            case 'G': midiSynth.playNote(G);
-                break;
-            case 'F': midiSynth.playNote(F);
-                break;
-        }
-    }
+    }//==========================BUTTON STATE METHODS END===========================
 }
