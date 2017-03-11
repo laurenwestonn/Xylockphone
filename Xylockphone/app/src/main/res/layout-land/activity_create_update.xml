@@ -79,10 +79,48 @@
         android:elevation="@dimen/fab_margin"
         app:srcCompat="@drawable/xylkey" />
 
+    <Button
+        android:id="@+id/play"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/icon_play"
+        android:backgroundTint="@color/colorPrimary" />
+
+    <Button
+        android:id="@+id/record"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/play"
+        android:layout_toRightOf="@+id/play"
+        android:background="@drawable/icon_record"
+        android:backgroundTint="@color/colorPrimary" />
+
     <TextView
         android:id="@+id/notesPlayed"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
-        android:text="@string/notesPlayed"/>
+        android:layout_toEndOf="@+id/record"
+        android:layout_toLeftOf="@+id/save"
+        android:layout_toRightOf="@+id/record"
+        android:layout_toStartOf="@+id/save"
+        android:text="@string/notesPlayed"
+        android:textSize="36sp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"/>
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/icon_save"
+        android:backgroundTint="@color/colorPrimary" />
 </RelativeLayout>
