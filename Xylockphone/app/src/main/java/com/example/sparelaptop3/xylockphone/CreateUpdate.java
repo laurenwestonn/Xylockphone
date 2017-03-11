@@ -5,9 +5,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import org.billthefarmer.mididriver.MidiDriver;
+import android.view.MotionEvent;
+import android.widget.Button;
+import android.widget.TextView;
 
-public class CreateUpdate extends AppCompatActivity {
+public class CreateUpdate extends AppCompatActivity implements View.OnTouchListener{
 
+    private MidiSynthInterface midiSynth;
+    private ImageButton buttonPlayNote;
     public static final String TAG = "YOUR-TAG-NAME";
 
     @Override
@@ -26,8 +32,13 @@ public class CreateUpdate extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                //Find which note was played. The note is the third character
                 char strNote = getResources().getResourceEntryName(v.getId()).charAt(2);
                 Log.d(TAG, strNote + " was clicked");
+
+                //Add to the notes played, the new note played
+                TextView notesPlayed = (TextView) findViewById(R.id.notesPlayed);
+                notesPlayed.setText(notesPlayed.getText() + ", " + strNote);
             }
         };
 
@@ -37,5 +48,50 @@ public class CreateUpdate extends AppCompatActivity {
         bE.setOnClickListener(declarePressedKey);
         bF.setOnClickListener(declarePressedKey);
         bG.setOnClickListener(declarePressedKey);
+
+        buttonPlayNote = (ImageButton)findViewById(R.id.XyA);
+        buttonPlayNote.setOnTouchListener(this);
+
+        midiSynth = new MidiSynthInterface();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        midiSynth.start();
+
+        // Get the configuration.
+     /*   config = midiDriver.config();
+
+        // Print out the details.
+        Log.d(this.getClass().getName(), "maxVoices: " + config[0]);
+        Log.d(this.getClass().getName(), "numChannels: " + config[1]);
+        Log.d(this.getClass().getName(), "sampleRate: " + config[2]);
+        Log.d(this.getClass().getName(), "mixBufferSize: " + config[3]);*/
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        midiSynth.stop();
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+
+        Log.d(this.getClass().getName(), "Motion event: " + event);
+
+        if (v.getId() == R.id.XyA) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                Log.d(this.getClass().getName(), "MotionEvent.ACTION_DOWN");
+                midiSynth.playNote();
+            }
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                Log.d(this.getClass().getName(), "MotionEvent.ACTION_UP");
+                midiSynth.stopNote();
+            }
+        }
+
+        return false;
     }
 }
