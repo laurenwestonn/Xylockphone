@@ -32,11 +32,12 @@ public class CreateUpdate extends AppCompatActivity implements View.OnTouchListe
             @Override
             public void onClick(View v) {
 
+                //Find which note was played. The note is the third character
                 char strNote = getResources().getResourceEntryName(v.getId()).charAt(2);
                 Log.d(TAG, strNote + " was clicked");
 
+                //Add to the notes played, the new note played
                 TextView notesPlayed = (TextView) findViewById(R.id.notesPlayed);
-
                 notesPlayed.setText(notesPlayed.getText() + ", " + strNote);
             }
         };
