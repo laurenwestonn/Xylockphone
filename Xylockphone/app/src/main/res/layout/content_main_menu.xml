@@ -137,8 +137,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
-            android:onClick="toView"
-            android:text="@string/view"/>
+            android:background="@drawable/icon_view"
+            android:backgroundTint="@android:color/holo_red_dark"
+            android:onClick="toView" />
 
 
     </LinearLayout>
