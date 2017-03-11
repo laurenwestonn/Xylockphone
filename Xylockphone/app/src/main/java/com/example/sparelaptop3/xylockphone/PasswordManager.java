@@ -21,7 +21,7 @@ public class PasswordManager implements Serializable {
 
     public PasswordManager(AppCompatActivity app){
         this.app = app;
-        serialise(app);
+        deserialise(app);
     } //do not instantite
     private static HashMap<String, Password> passwords = new HashMap<String, Password>();
     private static AssetManager am;
