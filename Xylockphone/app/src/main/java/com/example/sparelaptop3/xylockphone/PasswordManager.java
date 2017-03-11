@@ -34,6 +34,9 @@ public class PasswordManager {
         serialise(app);
     }
 
+    public static HashMap<String, Password> getAll() {
+        return passwords;
+    }
     static void deserialise(AppCompatActivity app){
         am = app.getApplicationContext().getAssets();
         try {
