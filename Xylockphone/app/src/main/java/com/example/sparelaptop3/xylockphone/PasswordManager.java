@@ -9,6 +9,7 @@ import java.util.*;
 public class PasswordManager {
     private PasswordManager(){} //do not instantite
     private HashMap passwords;
+
     private static Password getPassword(String appName){
         return null;
     }

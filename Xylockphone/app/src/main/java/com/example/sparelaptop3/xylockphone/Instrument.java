@@ -11,4 +11,8 @@ public abstract class Instrument {
     public String getName(){
         return name;
     }
+
+    public String noteIDToName(int noteID){
+        return "A";
+    }
 }
