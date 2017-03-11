@@ -94,7 +94,7 @@
         android:layout_alignParentStart="true"
         android:background="@drawable/icon_play"
         android:backgroundTint="@android:color/background_light"
-        android:onClick="onPlayButton" />
+        android:onClick="setPlay" />
 
     <Button
         android:id="@+id/record"

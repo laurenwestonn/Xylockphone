@@ -180,6 +180,16 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
         v.setBackgroundResource(R.drawable.icon_stop);
         //Change record button to record
         findViewById(R.id.record).setBackgroundResource(R.drawable.icon_record);
+
+        CharSequence notesPlayed = ((TextView) findViewById(R.id.notesPlayed)).getText();
+        for (int index = 0; index < notesPlayed.length(); index+=2) {
+            playNote(notesPlayed.charAt(index));
+            try {
+                sleep(250);
+            }catch(InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void setRecord(View v) {
