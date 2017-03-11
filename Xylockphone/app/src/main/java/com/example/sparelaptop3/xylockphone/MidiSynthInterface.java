@@ -18,14 +18,21 @@ public class MidiSynthInterface implements MidiDriver.OnMidiStartListener {
         midiDriver = new MidiDriver();
         // Set the listener.
         midiDriver.setOnMidiStartListener(this);
+        setInstrument(13);
     }
 
     public void onMidiStart() {
         Log.d(this.getClass().getName(), "onMidiStart()");
     }
 
-    public void playNote(Note note) {
+    public void setInstrument(int inst) {
+        event = new byte[2];
+        event[0] = (byte) (0xc0);  //code for a program change
+        event[1] = (byte) inst; // the instrument we are changing to
+        midiDriver.write(event);
+    }
 
+    public void playNote(Note note) {
         // Construct a note ON message for the middle C at maximum velocity on channel 1:
         event = new byte[3];
         event[0] = (byte) (0x90 | 0x00);  // 0x90 = note On, 0x00 = channel 1
@@ -49,7 +56,6 @@ public class MidiSynthInterface implements MidiDriver.OnMidiStartListener {
 
         // Send the MIDI event to the synthesizer.
         midiDriver.write(event);
-
     }
 
     public void stop() {
