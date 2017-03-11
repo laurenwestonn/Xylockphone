@@ -16,7 +16,7 @@ import org.billthefarmer.mididriver.MidiDriver;
 import android.view.MotionEvent;
 import android.widget.Button;
 import android.widget.TextView;
-
+import static java.lang.Thread.sleep;
 public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchListener*/{
 
     private MidiSynthInterface midiSynth;
@@ -150,7 +150,7 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
             setPlay(v); //Start music, disallow key presses, retain pw
         else if (findViewById(R.id.play).getBackground().getConstantState() ==
                 getResources().getDrawable(R.drawable.icon_stop).getConstantState())
-            setIdle(v); //Stop music, allow key presses, retain pw
+            setIdle(); //Stop music, allow key presses, retain pw
     }
 
     public void onRecordButton(View v) {
@@ -159,7 +159,7 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
             setRecord(v);   //Stop music if playing, allow key presses, append to PW
         else if (findViewById(R.id.record).getBackground().getConstantState() ==
                 getResources().getDrawable(R.drawable.icon_stop).getConstantState())
-            setIdle(v);     //Keep music off, allow key presses, retain pw
+            setIdle();     //Keep music off, allow key presses, retain pw
     }
 
     public void onSaveButton(View v) {
@@ -169,46 +169,51 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
 
     //STATE METHODS=========
     public void setPlay(View v) {
-        //Start music
 
-        // disallow key presses
+        playMusic(true);
 
-        // disallow saving
+        allowKeyPresses(false);
 
-        //Change icon to play
-        v.setBackgroundResource(R.drawable.icon_play);
-        //Change record button to record
-        findViewById(R.id.record).setBackgroundResource(R.drawable.icon_record);
-
-        CharSequence notesPlayed = ((TextView) findViewById(R.id.notesPlayed)).getText();
-        for (int index = 0; index < notesPlayed.length(); index+=2) {
-            playNote(notesPlayed.charAt(index));
-        }
-    }
-
-    public void setRecord(View v) {
-        //Stop music if playing
-
-        // allow key presses
-
-        // disallow saving
-
-        // append to PW
-
-        //((TextView) findViewById(R.id.notesPlayed)).setText("");
-    }
-
-    public void setIdle(View v) {
-        //Stop music if playing
-
-        // allow key presses
-
-        //Allow saving
+        allowSaving(false);
 
         //Change icon to stop
         v.setBackgroundResource(R.drawable.icon_stop);
+        //Change record button to record
+        findViewById(R.id.record).setBackgroundResource(R.drawable.icon_record);
+    }
 
+    public void setRecord(View v) {
+
+        playMusic(false);
+
+        allowKeyPresses(true);
+
+        allowSaving(false);
+
+        // append to PW
+
+        //Change icon to stop
+        v.setBackgroundResource(R.drawable.icon_stop);
+        //Disable play - make it unclickable with no image
+        findViewById(R.id.record).setBackgroundResource(0);
+        findViewById(R.id.record).setEnabled(false);
+
+        //Delete the pw you have saved - DO THIS PROPERLY, delete from file
         ((TextView) findViewById(R.id.notesPlayed)).setText("");
+    }
+
+    public void setIdle() {
+
+        playMusic(false);
+
+        allowKeyPresses(true);
+
+        allowSaving(true);
+
+        //Allow to play
+        findViewById(R.id.play).setBackgroundResource(R.drawable.icon_play);
+        //Allow to record
+        findViewById(R.id.record).setBackgroundResource(R.drawable.icon_record);
     }
 
     public void setSave(View v) {
@@ -235,5 +240,38 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
             }
         });
         builder.show();
-    }//==========================BUTTON STATE METHODS END===========================
+    }
+
+    //HELPER METHODS===============
+    public void allowKeyPresses(boolean b) {
+        //Decides whether to allow you to press the xylophone keys
+        findViewById(R.id.XyA).setEnabled(b);
+        findViewById(R.id.XyC).setEnabled(b);
+        findViewById(R.id.XyD).setEnabled(b);
+        findViewById(R.id.XyE).setEnabled(b);
+        findViewById(R.id.XyF).setEnabled(b);
+        findViewById(R.id.XyG).setEnabled(b);
+    }
+
+    public void playMusic (boolean b) {
+        if(!b)
+            return;
+
+        CharSequence notesPlayed = ((TextView) findViewById(R.id.notesPlayed)).getText();
+        for (int index = 0; index < notesPlayed.length(); index+=2) {
+            playNote(notesPlayed.charAt(index));
+            try {
+                sleep(250);
+            }catch(InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void allowSaving(boolean b) {
+        //Decides whether to display the button's image and whether it is enabled
+        findViewById(R.id.save).setBackgroundResource((b ? R.drawable.icon_save : 0));
+        findViewById(R.id.save).setEnabled(b);
+    }
+    //==========================BUTTON STATE METHODS END===========================
 }
