@@ -1,19 +1,23 @@
 package com.example.sparelaptop3.xylockphone;
 
+import android.content.DialogInterface;
 import android.graphics.Typeface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import org.billthefarmer.mididriver.MidiDriver;
 import android.view.MotionEvent;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class CreateUpdate extends AppCompatActivity implements View.OnTouchListener{
+public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchListener*/{
 
     private MidiSynthInterface midiSynth;
     private ImageButton buttonPlayNote;
@@ -24,6 +28,7 @@ public class CreateUpdate extends AppCompatActivity implements View.OnTouchListe
     private Note E;
     private Note F;
     private Note G;
+    private String m_Text = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,20 +61,7 @@ public class CreateUpdate extends AppCompatActivity implements View.OnTouchListe
                 //Add to the notes played, the new note played
                 TextView notesPlayed = (TextView) findViewById(R.id.notesPlayed);
                 notesPlayed.setText(notesPlayed.getText() + ((notesPlayed.getText().length() == 0) ? "" : ", ") + strNote);
-                switch (strNote) {
-                    case 'A': midiSynth.playNote(A);
-                        break;
-                    case 'C': midiSynth.playNote(C);
-                        break;
-                    case 'D': midiSynth.playNote(D);
-                        break;
-                    case 'E': midiSynth.playNote(E);
-                        break;
-                    case 'G': midiSynth.playNote(G);
-                        break;
-                    case 'F': midiSynth.playNote(F);
-                        break;
-                }
+                playNote(strNote);
             }
         };
 
@@ -88,7 +80,7 @@ public class CreateUpdate extends AppCompatActivity implements View.OnTouchListe
         G = new Note((byte) 0x43);
 
         buttonPlayNote = (ImageButton)findViewById(R.id.XyA);
-        buttonPlayNote.setOnTouchListener(this);
+        //buttonPlayNote.setOnTouchListener(this);
 
         midiSynth = new MidiSynthInterface();
     }
@@ -114,7 +106,7 @@ public class CreateUpdate extends AppCompatActivity implements View.OnTouchListe
         midiSynth.stop();
     }
 
-    @Override
+  /*  @Override
     public boolean onTouch(View v, MotionEvent event) {
 
         Log.d(this.getClass().getName(), "Motion event: " + event);
@@ -131,9 +123,59 @@ public class CreateUpdate extends AppCompatActivity implements View.OnTouchListe
         }
 
         return false;
-    }
+    }*/
 
     public void onRecord(View v) {
         ((TextView) findViewById(R.id.notesPlayed)).setText("");
+    }
+
+    public void onSave(View v) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Enter Password Name");
+
+        // Set up the input
+        final EditText input = new EditText(this);
+        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                m_Text = input.getText().toString();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+    }
+
+    public void onPlay(View v) {
+        CharSequence notesPlayed = ((TextView) findViewById(R.id.notesPlayed)).getText();
+        for (int index = 0; index < notesPlayed.length(); index+=2) {
+            playNote(notesPlayed.charAt(index));
+        }
+    }
+
+    public void playNote(char noteChar) {
+        switch (noteChar) {
+            case 'A': midiSynth.playNote(A);
+                break;
+            case 'C': midiSynth.playNote(C);
+                break;
+            case 'D': midiSynth.playNote(D);
+                break;
+            case 'E': midiSynth.playNote(E);
+                break;
+            case 'G': midiSynth.playNote(G);
+                break;
+            case 'F': midiSynth.playNote(F);
+                break;
+        }
     }
 }
