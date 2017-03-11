@@ -1,11 +1,11 @@
 package com.example.sparelaptop3.xylockphone;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.PrintWriter;
 import java.util.*;
 
 import android.content.Context;
@@ -15,13 +15,13 @@ import android.support.v7.app.AppCompatActivity;
  * Created by SPARELAPTOP1 on 10/03/2017.
  */
 
-public class PasswordManager implements Serializable {
+public class PasswordManager {
 
     private static AppCompatActivity app;
 
     public PasswordManager(AppCompatActivity app){
         this.app = app;
-        deserialise(app);
+        loadFromFile(app);
     } //do not instantite
     private static HashMap<String, Password> passwords = new HashMap<String, Password>();
     private static AssetManager am;
@@ -32,29 +32,55 @@ public class PasswordManager implements Serializable {
 
     static void setPassword(String appName, Password password){
         passwords.put(appName, password);
-        serialise(app);
+        saveToFile(app);
     }
 
     public static HashMap<String, Password> getAll() {
         return passwords;
     }
-    static void deserialise(AppCompatActivity app){
+    static void loadFromFile(AppCompatActivity app){
         am = app.getApplicationContext().getAssets();
         try {
-            InputStream fi = am.open("passwords.txt");
-            ObjectInputStream is = new ObjectInputStream(fi);
-            passwords = (HashMap<String, Password>) is.readObject();
-        } catch (IOException|ClassNotFoundException i) {
+            //     InputStream fi = am.open("passwords.txt");
+            File test = new File(app.getApplicationContext().getFilesDir() + "/passwords.txt");
+            if (test.exists()){
+                if (test.canRead()){
+                    String test2 = "uihi";
+                }
+            }
+            BufferedReader br = new BufferedReader(new FileReader(test));
+
+            String line = "";
+            passwords.clear();
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(":");
+                String appName = values[0];
+                CharSequence chars = values[1];
+                Instrument i = new Xylophone();
+                Password p = new Password(i, chars);
+                passwords.put(appName, p);
+            }
+            passwords.size();
+        } catch (IOException i) {
             i.printStackTrace();
         }
 
     }
 
-    static void serialise(AppCompatActivity app){
+    static void saveToFile(AppCompatActivity app){
         try {
-            FileOutputStream fo = app.getApplicationContext().openFileOutput("passwords.txt", Context.MODE_PRIVATE);
-            ObjectOutputStream os = new ObjectOutputStream(fo);
-            os.writeObject(passwords);
+            FileOutputStream fo = app.getApplicationContext().openFileOutput("passwords.txt", Context.MODE_APPEND);
+            PrintWriter pw = new PrintWriter(app.getApplicationContext().getFilesDir() + "/passwords.txt");
+            for (HashMap.Entry<String, Password> password : passwords.entrySet()) {
+                String appName = password.getKey();
+                Password appPass = password.getValue();
+                pw.println(appName + ":" + appPass.getNotes());
+            }
+            pw.flush();
+            File file = new File(app.getApplicationContext().getFilesDir() + "/passwords.txt");
+
+
+
         } catch(IOException e) {
             e.printStackTrace();
         }
