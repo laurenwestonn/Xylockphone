@@ -18,7 +18,6 @@ public class MidiSynthInterface implements MidiDriver.OnMidiStartListener {
         midiDriver = new MidiDriver();
         // Set the listener.
         midiDriver.setOnMidiStartListener(this);
-        setInstrument(13);
     }
 
     public void onMidiStart() {
@@ -33,6 +32,7 @@ public class MidiSynthInterface implements MidiDriver.OnMidiStartListener {
     }
 
     public void playNote(Note note) {
+        setInstrument(13);
         // Construct a note ON message for the middle C at maximum velocity on channel 1:
         event = new byte[3];
         event[0] = (byte) (0x90 | 0x00);  // 0x90 = note On, 0x00 = channel 1
