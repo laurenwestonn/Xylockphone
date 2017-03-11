@@ -40,7 +40,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainMenu" />
         </activity>
-        <activity android:name=".Display"></activity>
+        <activity android:name=".Display" />
+        <activity android:name=".LockScreenTestActivity" />
+        <activity android:name=".LockScreen"></activity>
     </application>
 
 </manifest>
