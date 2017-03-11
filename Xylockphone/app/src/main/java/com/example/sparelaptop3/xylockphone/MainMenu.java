@@ -1,15 +1,20 @@
 package com.example.sparelaptop3.xylockphone;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 public class MainMenu extends AppCompatActivity {
+
+    public static final String EXTRA_MESSAGE = "hi";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +34,8 @@ public class MainMenu extends AppCompatActivity {
     }
 
     public void sendMessage(View view) {
-
+        Intent intent = new Intent(this, CreateUpdate.class);
+        startActivity(intent);
     }
 
     @Override
