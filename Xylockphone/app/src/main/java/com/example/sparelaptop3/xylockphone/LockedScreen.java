@@ -12,12 +12,7 @@ public class LockedScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_view);
-        startActivity(new Intent(this, LockScreen.class));
+        Intent lockScreen = new Intent(this, LockScreen.class);
+        startActivityForResult(lockScreen, LockScreen.LOCK);
     }
-
-    void toLockScreen(){
-
-        LockScreen lockScreen = new LockScreen(new Intent(this, LockScreen.class));
-    }
-
 }

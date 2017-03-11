@@ -10,9 +10,17 @@ import android.view.*;
  */
 
 public class LockScreen extends AppCompatActivity {
+    public static final int LOCK = 1;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view);
+        onPasswordCorrect();
     }
 
+    private void onPasswordCorrect(){
+        finishActivity(LOCK);
+    }
+
+    private void onPasswordIncorrect(){
+
+    }
 }
