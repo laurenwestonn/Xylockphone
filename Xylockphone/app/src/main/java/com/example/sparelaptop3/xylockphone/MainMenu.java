@@ -30,9 +30,9 @@ public class MainMenu extends AppCompatActivity {
         Instrument i = new Xylophone();
         Password pass = new Password(i);
         LinkedList<Note> notes = new LinkedList<Note>();
-        notes.add(new Note(1,1));
+        notes.add(new Note((byte) 0x45,1));
         LinkedList<Note> notes2 = new LinkedList<Note>();
-        notes2.add(new Note(2,1));
+        notes2.add(new Note((byte) 0x43,1));
         pass.SetNotes(notes);
         pwmgr.setPassword("test", pass);
         final String returned;

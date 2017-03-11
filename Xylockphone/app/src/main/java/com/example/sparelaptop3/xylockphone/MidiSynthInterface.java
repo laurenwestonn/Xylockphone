@@ -24,12 +24,12 @@ public class MidiSynthInterface implements MidiDriver.OnMidiStartListener {
         Log.d(this.getClass().getName(), "onMidiStart()");
     }
 
-    public void playNote() {
+    public void playNote(Note note) {
 
         // Construct a note ON message for the middle C at maximum velocity on channel 1:
         event = new byte[3];
         event[0] = (byte) (0x90 | 0x00);  // 0x90 = note On, 0x00 = channel 1
-        event[1] = (byte) 0x3C;  // 0x3C = middle C
+        event[1] = (byte) note.getNote();  // 0x3C = middle C
         event[2] = (byte) 0x7F;  // 0x7F = the maximum velocity (127)
 
         // Internally this just calls write() and can be considered obsoleted:
@@ -39,12 +39,12 @@ public class MidiSynthInterface implements MidiDriver.OnMidiStartListener {
         midiDriver.write(event);
     }
 
-    public void stopNote() {
+    public void stopNote(Note note) {
 
         // Construct a note OFF message for the middle C at minimum velocity on channel 1:
         event = new byte[3];
         event[0] = (byte) (0x80 | 0x00);  // 0x80 = note Off, 0x00 = channel 1
-        event[1] = (byte) 0x3C;  // 0x3C = middle C
+        event[1] = note.getNote();  // 0x3C = middle C
         event[2] = (byte) 0x00;  // 0x00 = the minimum velocity (0)
 
         // Send the MIDI event to the synthesizer.

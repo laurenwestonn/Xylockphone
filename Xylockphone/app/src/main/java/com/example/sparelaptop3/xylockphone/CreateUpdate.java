@@ -15,6 +15,12 @@ public class CreateUpdate extends AppCompatActivity implements View.OnTouchListe
     private MidiSynthInterface midiSynth;
     private ImageButton buttonPlayNote;
     public static final String TAG = "YOUR-TAG-NAME";
+    private Note A;
+    private Note C;
+    private Note D;
+    private Note E;
+    private Note F;
+    private Note G;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +37,6 @@ public class CreateUpdate extends AppCompatActivity implements View.OnTouchListe
         View.OnClickListener declarePressedKey = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 //Find which note was played. The note is the third character
                 char strNote = getResources().getResourceEntryName(v.getId()).charAt(2);
                 Log.d(TAG, strNote + " was clicked");
@@ -39,6 +44,20 @@ public class CreateUpdate extends AppCompatActivity implements View.OnTouchListe
                 //Add to the notes played, the new note played
                 TextView notesPlayed = (TextView) findViewById(R.id.notesPlayed);
                 notesPlayed.setText(notesPlayed.getText() + ", " + strNote);
+                switch (strNote) {
+                    case 'A': midiSynth.playNote(A);
+                        break;
+                    case 'C': midiSynth.playNote(C);
+                        break;
+                    case 'D': midiSynth.playNote(D);
+                        break;
+                    case 'E': midiSynth.playNote(E);
+                        break;
+                    case 'G': midiSynth.playNote(G);
+                        break;
+                    case 'F': midiSynth.playNote(F);
+                        break;
+                }
             }
         };
 
@@ -48,6 +67,13 @@ public class CreateUpdate extends AppCompatActivity implements View.OnTouchListe
         bE.setOnClickListener(declarePressedKey);
         bF.setOnClickListener(declarePressedKey);
         bG.setOnClickListener(declarePressedKey);
+
+        A = new Note((byte) 0x45);
+        C = new Note((byte) 0x3C);
+        D = new Note((byte) 0x3E);
+        E = new Note((byte) 0x40);
+        F = new Note((byte) 0x41);
+        G = new Note((byte) 0x43);
 
         buttonPlayNote = (ImageButton)findViewById(R.id.XyA);
         buttonPlayNote.setOnTouchListener(this);
@@ -84,11 +110,11 @@ public class CreateUpdate extends AppCompatActivity implements View.OnTouchListe
         if (v.getId() == R.id.XyA) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 Log.d(this.getClass().getName(), "MotionEvent.ACTION_DOWN");
-                midiSynth.playNote();
+                midiSynth.playNote(A);
             }
             if (event.getAction() == MotionEvent.ACTION_UP) {
                 Log.d(this.getClass().getName(), "MotionEvent.ACTION_UP");
-                midiSynth.stopNote();
+                midiSynth.stopNote(A);
             }
         }
 
