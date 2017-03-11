@@ -21,7 +21,8 @@
         </activity>
         <activity
             android:name=".CreateUpdate"
-            android:parentActivityName=".MainMenu">
+            android:parentActivityName=".MainMenu"
+            android:screenOrientation="sensorLandscape">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainMenu" />

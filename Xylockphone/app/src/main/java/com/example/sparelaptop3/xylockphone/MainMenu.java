@@ -14,8 +14,6 @@ import android.widget.EditText;
 
 public class MainMenu extends AppCompatActivity {
 
-    public static final String EXTRA_MESSAGE = "hi";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,9 +31,12 @@ public class MainMenu extends AppCompatActivity {
         });
     }
 
-    public void sendMessage(View view) {
-        Intent intent = new Intent(this, CreateUpdate.class);
-        startActivity(intent);
+    public void toCreate(View view) {
+        startActivity(new Intent(this, CreateUpdate.class));
+    }
+
+    public void toView(View view) {
+        startActivity(new Intent(this, View.class));
     }
 
     @Override
