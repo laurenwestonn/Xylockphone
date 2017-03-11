@@ -1,5 +1,6 @@
 package com.example.sparelaptop3.xylockphone;
 
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +28,11 @@ public class CreateUpdate extends AppCompatActivity implements View.OnTouchListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_update);
 
+        //Get a nice font
+        TextView tx = (TextView)findViewById(R.id.notesPlayed);
+        Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/becca.ttf");
+        tx.setTypeface(custom_font);
+
         ImageButton bA = (ImageButton) findViewById(R.id.XyA);
         ImageButton bC = (ImageButton) findViewById(R.id.XyC);
         ImageButton bD = (ImageButton) findViewById(R.id.XyD);
@@ -43,7 +49,7 @@ public class CreateUpdate extends AppCompatActivity implements View.OnTouchListe
 
                 //Add to the notes played, the new note played
                 TextView notesPlayed = (TextView) findViewById(R.id.notesPlayed);
-                notesPlayed.setText(notesPlayed.getText() + ", " + strNote);
+                notesPlayed.setText(notesPlayed.getText() + ((notesPlayed.getText().length() == 0) ? "" : ", ") + strNote);
                 switch (strNote) {
                     case 'A': midiSynth.playNote(A);
                         break;
@@ -119,5 +125,9 @@ public class CreateUpdate extends AppCompatActivity implements View.OnTouchListe
         }
 
         return false;
+    }
+
+    public void onRecord(View v) {
+        ((TextView) findViewById(R.id.notesPlayed)).setText("");
     }
 }

@@ -97,7 +97,8 @@
         android:layout_toEndOf="@+id/play"
         android:layout_toRightOf="@+id/play"
         android:background="@drawable/icon_record"
-        android:backgroundTint="@color/colorPrimary" />
+        android:backgroundTint="@color/colorPrimary"
+        android:onClick="onRecord" />
 
     <TextView
         android:id="@+id/notesPlayed"

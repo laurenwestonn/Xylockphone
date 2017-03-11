@@ -26,7 +26,6 @@ public class Display extends AppCompatActivity {
             Class type = instrument.getClass();
             String className = type.toString().split("com.example.sparelaptop3.xylockphone.")[1];
             Log.d(DEBUG, className);
-            Log.d(DEBUG, String.valueOf(appPass.getNotes().get(0).getNoteID()));
         }
     }
 }
