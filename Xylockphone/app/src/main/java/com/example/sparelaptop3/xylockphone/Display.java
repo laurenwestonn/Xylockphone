@@ -40,7 +40,7 @@ public class Display extends AppCompatActivity {
                     d = R.drawable.xylkey;
                     break;
             }
-            d = R.drawable.guitar;
+   //         d = R.drawable.guitar;
             Apps[i] = appName;
             instrumentIcons[i] = d;
             i++;
