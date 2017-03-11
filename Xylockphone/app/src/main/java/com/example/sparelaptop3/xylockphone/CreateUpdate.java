@@ -16,7 +16,7 @@ import org.billthefarmer.mididriver.MidiDriver;
 import android.view.MotionEvent;
 import android.widget.Button;
 import android.widget.TextView;
-
+import static java.lang.Thread.sleep;
 public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchListener*/{
 
     private MidiSynthInterface midiSynth;
@@ -183,6 +183,11 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
         CharSequence notesPlayed = ((TextView) findViewById(R.id.notesPlayed)).getText();
         for (int index = 0; index < notesPlayed.length(); index+=2) {
             playNote(notesPlayed.charAt(index));
+            try {
+                sleep(250);
+            }catch(InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
