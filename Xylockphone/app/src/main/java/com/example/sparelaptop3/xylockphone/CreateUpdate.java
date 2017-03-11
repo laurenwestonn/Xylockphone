@@ -17,6 +17,8 @@ import android.view.MotionEvent;
 import android.widget.Button;
 import android.widget.TextView;
 import static java.lang.Thread.sleep;
+import java.util.HashMap;
+
 public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchListener*/{
 
     private MidiSynthInterface midiSynth;
@@ -29,6 +31,7 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
     private Note F;
     private Note G;
     private String m_Text = "";
+    private PasswordManager pwdmgr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +86,9 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
         //buttonPlayNote.setOnTouchListener(this);
 
         midiSynth = new MidiSynthInterface();
+
+        PasswordManager pwdmgr = (PasswordManager) getIntent().getSerializableExtra("pwdmgr");
+
     }
 
     @Override

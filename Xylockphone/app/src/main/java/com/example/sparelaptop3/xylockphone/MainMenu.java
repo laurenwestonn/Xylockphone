@@ -27,7 +27,7 @@ public class MainMenu extends AppCompatActivity {
 
        //Instantiate password manager first so that any existing passwords can be retrieved
         pwmgr = new PasswordManager(this);
-        Instrument i = new Xylophone();
+ /*       Instrument i = new Xylophone();
         Password pass = new Password(i);
         LinkedList<Note> notes = new LinkedList<Note>();
         notes.add(new Note((byte) 0x45,1));
@@ -41,7 +41,7 @@ public class MainMenu extends AppCompatActivity {
         final String returned2;
         if (pass.ComparePassword(notes2)) returned2 = "true";
         else returned2 = "false";
-
+*/
         //Get a nice font
         TextView tx = (TextView)findViewById(R.id.appName);
 
@@ -51,7 +51,9 @@ public class MainMenu extends AppCompatActivity {
     }
 
     public void toCreate(View view) {
-        startActivity(new Intent(this, CreateUpdate.class));
+        Intent i = new Intent(this, CreateUpdate.class);
+        i.putExtra("pwdmgr", pwmgr);
+        startActivity(i);
     }
 
     public void toView(View view) {

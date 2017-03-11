@@ -7,29 +7,30 @@ import java.util.List;
  */
 
 public class Password {
-    private List<Note> notes;
+    private CharSequence chars;
     private Instrument instrument;
 
-    public Password(Instrument i){
-        instrument = i;
+    public Password(Instrument instrument, CharSequence chars){
+        this.instrument = instrument;
+        this.chars = chars;
     }
 
     public Instrument getInstrument(){
         return instrument;
     }
 
-    public List<Note> getNotes() { return notes; }
+    public CharSequence getNotes() { return chars; }
 
-    public void SetNotes(List<Note> notes)
+   public void SetNotes(CharSequence chars)
     {
-        this.notes = notes;
+        this.chars = chars;
     }
 
-    public boolean ComparePassword(List<Note> noteInput)
+    public boolean ComparePassword(CharSequence charsIn)
     {
-        if (notes.isEmpty()) {
+        if (chars == null) {
             return false;
         }
-        return notes.equals(noteInput);
+        return chars.equals(charsIn);
     }
 }
