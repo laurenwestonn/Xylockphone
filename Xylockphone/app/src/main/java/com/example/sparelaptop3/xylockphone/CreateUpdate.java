@@ -60,7 +60,7 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
 
                 //Add to the notes played, the new note played
                 TextView notesPlayed = (TextView) findViewById(R.id.notesPlayed);
-                notesPlayed.setText(notesPlayed.getText() + ((notesPlayed.getText().length() == 0) ? "" : ", ") + strNote);
+                notesPlayed.setText(notesPlayed.getText() + ((notesPlayed.getText().length() == 0) ? "" : ",") + strNote);
                 playNote(strNote);
             }
         };
@@ -145,6 +145,7 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
     //=================================BUTTON STATE METHODS===========================
     //BUTTON CLICK METHODS=========
     public void onPlayButton(View v) {
+
         if (findViewById(R.id.play).getBackground().getConstantState() ==
                 getResources().getDrawable(R.drawable.icon_play).getConstantState())
             setPlay(v); //Start music, disallow key presses, retain pw
@@ -169,27 +170,7 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
 
     //STATE METHODS=========
     public void setPlay(View v) {
-
         playMusic(true);
-
-        allowKeyPresses(false);
-
-        allowSaving(false);
-
-        //Change icon to stop
-        v.setBackgroundResource(R.drawable.icon_stop);
-        //Change record button to record
-        findViewById(R.id.record).setBackgroundResource(R.drawable.icon_record);
-
-        CharSequence notesPlayed = ((TextView) findViewById(R.id.notesPlayed)).getText();
-        for (int index = 0; index < notesPlayed.length(); index+=2) {
-            playNote(notesPlayed.charAt(index));
-            try {
-                sleep(250);
-            }catch(InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     public void setRecord(View v) {
@@ -267,6 +248,11 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
         if(!b)
             return;
 
+        //Music is going to play. Change icon to stop
+        findViewById(R.id.play).setBackgroundResource(R.drawable.icon_stop);
+        allowKeyPresses(false);
+        allowSaving(false);
+
         CharSequence notesPlayed = ((TextView) findViewById(R.id.notesPlayed)).getText();
         for (int index = 0; index < notesPlayed.length(); index+=2) {
             playNote(notesPlayed.charAt(index));
@@ -276,6 +262,11 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
                 e.printStackTrace();
             }
         }
+
+        //Music finished. Change icon to play
+        findViewById(R.id.play).setBackgroundResource(R.drawable.icon_play);
+        allowKeyPresses(true);
+        allowSaving(true);
     }
 
     public void allowSaving(boolean b) {
