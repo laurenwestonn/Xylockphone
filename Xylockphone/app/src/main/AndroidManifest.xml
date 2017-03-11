@@ -22,7 +22,7 @@
         <activity
             android:name=".CreateUpdate"
             android:parentActivityName=".MainMenu"
-            android:screenOrientation="sensorLandscape">
+            android:screenOrientation="landscape">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainMenu" />
@@ -35,7 +35,7 @@
         <activity
             android:name=".View"
             android:parentActivityName=".MainMenu"
-            android:screenOrientation="sensorLandscape">
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainMenu" />
