@@ -27,21 +27,18 @@ public class MainMenu extends AppCompatActivity {
 
        //Instantiate password manager first so that any existing passwords can be retrieved
         pwmgr = new PasswordManager(this);
- /*       Instrument i = new Xylophone();
-        Password pass = new Password(i);
-        LinkedList<Note> notes = new LinkedList<Note>();
-        notes.add(new Note((byte) 0x45,1));
-        LinkedList<Note> notes2 = new LinkedList<Note>();
-        notes2.add(new Note((byte) 0x43,1));
-        pass.SetNotes(notes);
-        pwmgr.setPassword("test", pass);
+        Instrument i = new Xylophone();
+        CharSequence chars = "ghwer";
+        Password pass = new Password(i, chars);
+        chars = "sdfsdfs";
         final String returned;
-        if (pass.ComparePassword(notes)) returned = "true";
+        if (pass.ComparePassword(chars)) returned = "true";
         else returned = "false";
         final String returned2;
-        if (pass.ComparePassword(notes2)) returned2 = "true";
+        chars = "ghwer";
+        if (pass.ComparePassword(chars)) returned2 = "true";
         else returned2 = "false";
-*/
+
         //Get a nice font
         TextView tx = (TextView)findViewById(R.id.appName);
 
