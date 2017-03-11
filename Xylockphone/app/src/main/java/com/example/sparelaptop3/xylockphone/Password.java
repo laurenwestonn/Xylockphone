@@ -18,6 +18,8 @@ public class Password {
         return instrument;
     }
 
+    public List<Note> getNotes() { return notes; }
+
     public void SetNotes(List<Note> notes)
     {
         this.notes = notes;
