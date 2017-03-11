@@ -15,7 +15,13 @@ import android.support.v7.app.AppCompatActivity;
  */
 
 public class PasswordManager {
-    private PasswordManager(){} //do not instantite
+
+    private static AppCompatActivity app;
+
+    public PasswordManager(AppCompatActivity app){
+        this.app = app;
+        serialise(app);
+    } //do not instantite
     private static HashMap<String, Password> passwords = new HashMap<String, Password>();
     private static AssetManager am;
 
@@ -25,6 +31,7 @@ public class PasswordManager {
 
     static void setPassword(String appName, Password password){
         passwords.put(appName, password);
+        serialise(app);
     }
 
     static void deserialise(AppCompatActivity app){

@@ -12,6 +12,8 @@ public abstract class Instrument {
         return name;
     }
 
+    public void setName(String name) { this.name = name; }
+
     public String noteIDToName(int noteID){
         return "A";
     }

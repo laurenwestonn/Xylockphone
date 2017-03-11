@@ -18,4 +18,16 @@ public class Password {
         return instrument;
     }
 
+    public void SetNotes(List<Note> notes)
+    {
+        this.notes = notes;
+    }
+
+    public boolean ComparePassword(List<Note> noteInput)
+    {
+        if (notes.isEmpty()) {
+            return false;
+        }
+        return notes.equals(noteInput);
+    }
 }
