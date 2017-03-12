@@ -15,37 +15,59 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.2" />
+            android:layout_weight="0.05" />
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="0dp"
-            android:layout_height="80dp"
+            android:layout_height="50dp"
             android:layout_gravity="center_vertical"
-            android:layout_weight="0.2"
+            android:layout_weight="0.15"
             app:srcCompat="@drawable/logo" />
 
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.1" />
+            android:layout_weight="0.05" />
 
         <TextView
             android:id="@+id/appName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="0.3"
+            android:layout_weight="0.53"
             android:text="@string/app_name"
-            android:textSize="45sp" />
+            android:textSize="55sp" />
 
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.2" />
+            android:layout_weight="0.05" />
+
+        <Button
+            android:id="@+id/btnView"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.12"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/icon_view"
+            android:backgroundTint="@android:color/holo_red_dark"
+            android:onClick="toView" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.05" />
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:orientation="vertical">
+
+    </LinearLayout>
 
 
 
@@ -115,6 +137,14 @@
                 android:onClick="toCreate" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
     </LinearLayout>
 
 
@@ -125,20 +155,6 @@
         android:layout_height="0dp"
         android:layout_weight="0.1"
         android:orientation="horizontal">
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.8" />
-
-        <Button
-            android:id="@+id/btnView"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.2"
-            android:background="@drawable/icon_view"
-            android:backgroundTint="@android:color/holo_red_dark"
-            android:onClick="toView" />
 
 
     </LinearLayout>
