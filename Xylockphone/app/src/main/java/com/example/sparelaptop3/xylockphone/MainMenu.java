@@ -23,14 +23,15 @@ public class MainMenu extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Instantiate password manager first so that any existing passwords can be retrieved
+        pwmgr = new PasswordManager(this);
+        Instrument i = new Xylophone();
+        CharSequence chars = "ACDG";
+        Password pass = new Password(i, chars);
+        pwmgr.setPassword("test", pass);
+
         CreateUpdate.goToLockScreen(this);
         setContentView(R.layout.activity_main_menu);
-
-       //Instantiate password manager first so that any existing passwords can be retrieved
-        pwmgr = new PasswordManager(this);
-      //  Instrument i = new Xylophone();
-       // CharSequence chars = "ACDG";
-       // Password pass = new Password(i, chars);
 
         //Get a nice font
         TextView tx = (TextView)findViewById(R.id.appName);

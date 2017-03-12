@@ -59,6 +59,10 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
         Instrument i = (Instrument) getIntent().getSerializableExtra("instrument");
         CharSequence notes = getIntent().getCharSequenceExtra("notes");
         appName = getIntent().getStringExtra("app");
+        pwdmgr = (PasswordManager) getIntent().getSerializableExtra("pwdmgr");
+        if (pwdmgr == null) {
+            pwdmgr = new PasswordManager(this);
+        }
         if (lockScreen) {
             allowKeyPresses(true);
             setConf(true);
@@ -128,11 +132,6 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
         //buttonPlayNote.setOnTouchListener(this);
 
         midiSynth = new MidiSynthInterface();
-
-        pwdmgr = (PasswordManager) getIntent().getSerializableExtra("pwdmgr");
-        if (pwdmgr == null) {
-            pwdmgr = new PasswordManager(this);
-        }
     }
 
     @Override
