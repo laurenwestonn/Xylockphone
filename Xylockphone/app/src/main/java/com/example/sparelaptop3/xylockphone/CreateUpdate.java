@@ -16,6 +16,8 @@ import org.billthefarmer.mididriver.MidiDriver;
 import android.view.MotionEvent;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import static java.lang.Thread.sleep;
 import java.util.HashMap;
 
@@ -254,6 +256,9 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
                     Instrument i = new Xylophone();
                     Password p = new Password(i, notes);
                     pwdmgr.setPassword(m_Text, p);
+
+                    Toast toast = Toast.makeText(CreateUpdate.this, m_Text + " has been " + (appName != null ? "updated" : "created"), Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             }
         });
