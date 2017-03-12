@@ -33,6 +33,7 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
     private String m_Text = "";
     private PasswordManager pwdmgr;
     private int state = 0; //0 idle, 1 playing, 2 recording
+    private String appName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,7 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
         setContentView(R.layout.activity_create_update);
         Instrument i = (Instrument) getIntent().getSerializableExtra("instrument");
         CharSequence notes = getIntent().getCharSequenceExtra("notes");
-        String appName = getIntent().getStringExtra("app");
+        appName = getIntent().getStringExtra("app");
 
         //Get a nice font
         TextView tx = (TextView)findViewById(R.id.notesPlayed);
@@ -237,6 +238,7 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
 
         // Set up the input
         final EditText input = new EditText(this);
+        input.setText(appName);
         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(input);
