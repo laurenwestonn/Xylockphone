@@ -129,7 +129,7 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
 
         midiSynth = new MidiSynthInterface();
 
-        PasswordManager pwdmgr = (PasswordManager) getIntent().getSerializableExtra("pwdmgr");
+        pwdmgr = (PasswordManager) getIntent().getSerializableExtra("pwdmgr");
         if (pwdmgr == null) {
             pwdmgr = new PasswordManager(this);
         }
@@ -182,14 +182,22 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
             setIdle();     //Keep music off, allow key presses, retain pw
         }
         else if (state == 3) {
-            passwordCorrect();
-           /* CharSequence notes = ((TextView) findViewById(R.id.notesPlayed)).getText();
-            if (pwdmgr.equals(((TextView) findViewById(R.id.notesPlayed)).getText())) {
-                passwordCorrect();
+            HashMap<String, Password> hash = pwdmgr.getAll();
+            Boolean found = false;
+            String notes = (String) ((TextView) findViewById(R.id.notesPlayed)).getText();
+            CharSequence charNotes = (CharSequence) notes.replace(",", "").replace(" ", "");
+            for (HashMap.Entry<String, Password> password : hash.entrySet())
+            {
+                if (!found) {
+                    Password pass = password.getValue();
+                    if (pass.ComparePassword(charNotes))
+                        found=!found;
+                }
             }
-            else {
+            if (found)
+                passwordCorrect();
+            else
                 passwordIncorrect();
-            }*/
         }
     }
 
@@ -339,7 +347,8 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
     }
 
     private void passwordIncorrect(){
-
+        Toast toast = Toast.makeText(CreateUpdate.this,"Incorrect Melody", Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     static void goToLockScreen(AppCompatActivity app) {
