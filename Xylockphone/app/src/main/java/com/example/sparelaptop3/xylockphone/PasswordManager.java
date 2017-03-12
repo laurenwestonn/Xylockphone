@@ -43,13 +43,11 @@ public class PasswordManager implements Serializable {
         am = app.getApplicationContext().getAssets();
         try {
             //     InputStream fi = am.open("passwords.txt");
-            File test = new File(app.getApplicationContext().getFilesDir() + "/passwords.txt");
-            if (test.exists()){
-                if (test.canRead()){
-                    String test2 = "uihi";
-                }
+            File input = new File(app.getApplicationContext().getFilesDir() + "/passwords.txt");
+            if (!input.exists()){
+                input.createNewFile();
             }
-            BufferedReader br = new BufferedReader(new FileReader(test));
+            BufferedReader br = new BufferedReader(new FileReader(input));
 
             String line = "";
             passwords.clear();
