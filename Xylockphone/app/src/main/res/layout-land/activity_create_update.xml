@@ -93,7 +93,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="@drawable/icon_play"
-        android:backgroundTint="@android:color/background_light"
         android:onClick="onPlayButton" />
 
     <Button
@@ -105,18 +104,6 @@
         android:layout_alignParentStart="true"
         android:background="@drawable/icon_stop"
         android:visibility="invisible"
-        android:backgroundTint="@android:color/background_light"
-        android:onClick="setPlay" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@drawable/icon_play"
-        android:backgroundTint="@android:color/background_light"
         android:onClick="setPlay" />
 
     <Button
@@ -125,10 +112,8 @@
         android:layout_height="45dp"
         android:layout_below="@+id/XyC"
         android:layout_margin="11dp"
-        android:layout_toEndOf="@+id/play"
         android:layout_toRightOf="@+id/play"
         android:background="@drawable/icon_record"
-        android:backgroundTint="@android:color/background_light"
         android:gravity="center_vertical"
         android:onClick="onRecordButton"
         android:paddingBottom="15dp" />
@@ -137,17 +122,23 @@
         android:id="@+id/notesPlayed"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/record"
-        android:layout_toLeftOf="@+id/save"
-        android:layout_toRightOf="@+id/record"
-        android:layout_toStartOf="@+id/save"
         android:gravity="center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:text="@string/notesPlayed"
-        android:textColor="@android:color/background_light"
-        android:textSize="36sp" />
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:layout_alignLeft="@+id/record"
+        android:layout_alignRight="@+id/cancel"
+        android:textSize="36sp"
+        android:layout_alignParentBottom="true" />
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/save"
+        android:layout_margin="7dp"
+        android:background="@drawable/icon_cancel"
+        android:onClick="onCancelButton"/>
 
     <Button
         android:id="@+id/save"
@@ -158,6 +149,5 @@
         android:layout_alignParentRight="true"
         android:layout_margin="7dp"
         android:background="@drawable/icon_save"
-        android:onClick="onSaveButton"
-        android:backgroundTint="@android:color/background_light" />
+        android:onClick="onSaveButton" />
 </RelativeLayout>
