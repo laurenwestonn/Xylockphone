@@ -165,7 +165,7 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
     // 0 - Idle                        1 - Playing                          2 - Recording
     //BUTTON CLICK METHODS=========
     public void onPlayButton(View v) {
-        if (state == 0)
+        if (state == 0 || state == 3)
             setPlay(v); //Start music, disallow key presses, retain pw
         else if (state == 1) {
             setIdle(); //Stop music, allow key presses, retain pw
@@ -230,7 +230,7 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
     }
 
     public void setIdle() {
-        if (state == 3) {
+        if (state != 3) {
             allowKeyPresses(true);
 
             allowSaving(true);
