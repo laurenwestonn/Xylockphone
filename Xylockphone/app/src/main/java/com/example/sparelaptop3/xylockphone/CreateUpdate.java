@@ -130,6 +130,9 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
         midiSynth = new MidiSynthInterface();
 
         PasswordManager pwdmgr = (PasswordManager) getIntent().getSerializableExtra("pwdmgr");
+        if (pwdmgr == null) {
+            pwdmgr = new PasswordManager(this);
+        }
     }
 
     @Override
@@ -179,13 +182,14 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
             setIdle();     //Keep music off, allow key presses, retain pw
         }
         else if (state == 3) {
-            CharSequence notes = ((TextView) findViewById(R.id.notesPlayed)).getText();
+            passwordCorrect();
+           /* CharSequence notes = ((TextView) findViewById(R.id.notesPlayed)).getText();
             if (pwdmgr.equals(((TextView) findViewById(R.id.notesPlayed)).getText())) {
                 passwordCorrect();
             }
             else {
                 passwordIncorrect();
-            }
+            }*/
         }
     }
 
