@@ -232,6 +232,13 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 m_Text = input.getText().toString();
+                if (m_Text.length() > 0) {
+                    CharSequence notes = ((TextView) findViewById(R.id.notesPlayed)).getText();
+                    notes = notes.toString().replace(",","").replace(" ", "");
+                    Instrument i = new Xylophone();
+                    Password p = new Password(i, notes);
+                    pwdmgr.setPassword(m_Text, p);
+                }
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
