@@ -1,6 +1,7 @@
 package com.example.sparelaptop3.xylockphone;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -20,9 +21,13 @@ import android.widget.Toast;
 
 import static java.lang.Thread.sleep;
 import java.util.HashMap;
+import java.util.EventListener;
 
 public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchListener*/{
 
+    private Intent callbackIntent;
+    private Button callbackButton;
+    public static String CALLBACK_INTENT = "CALLBACK_INTENT";
     private MidiSynthInterface midiSynth;
     private ImageButton buttonPlayNote;
     public static final String TAG = "YOUR-TAG-NAME";
@@ -36,9 +41,15 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
     private PasswordManager pwdmgr;
     private int state = 0; //0 idle, 1 playing, 2 recording
     private String appName;
+    private boolean lockScreen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Bundle extras = getIntent().getExtras();
+        callbackIntent = (Intent) extras.get(CALLBACK_INTENT);
+        Log.d("LockScreen", "onCreate");
+        lockScreen = (boolean) getIntent().getSerializableExtra("lockScreen");
+
         //Remove title bar
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         //Remove notification bar
@@ -48,7 +59,14 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
         Instrument i = (Instrument) getIntent().getSerializableExtra("instrument");
         CharSequence notes = getIntent().getCharSequenceExtra("notes");
         appName = getIntent().getStringExtra("app");
-
+        if (lockScreen) {
+            allowKeyPresses(false);
+            allowSaving(false);
+        }
+        else {
+            allowKeyPresses(true);
+            allowSaving(true);
+        }
         //Get a nice font
         TextView tx = (TextView)findViewById(R.id.notesPlayed);
         if (notes != null) {
@@ -111,22 +129,12 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
         midiSynth = new MidiSynthInterface();
 
         PasswordManager pwdmgr = (PasswordManager) getIntent().getSerializableExtra("pwdmgr");
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         midiSynth.start();
-
-        // Get the configuration.
-     /*   config = midiDriver.config();
-
-        // Print out the details.
-        Log.d(this.getClass().getName(), "maxVoices: " + config[0]);
-        Log.d(this.getClass().getName(), "numChannels: " + config[1]);
-        Log.d(this.getClass().getName(), "sampleRate: " + config[2]);
-        Log.d(this.getClass().getName(), "mixBufferSize: " + config[3]);*/
     }
 
     @Override
@@ -134,25 +142,6 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
         super.onPause();
         midiSynth.stop();
     }
-
-  /*  @Override
-    public boolean onTouch(View v, MotionEvent event) {
-
-        Log.d(this.getClass().getName(), "Motion event: " + event);
-
-        if (v.getId() == R.id.XyA) {
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                Log.d(this.getClass().getName(), "MotionEvent.ACTION_DOWN");
-                midiSynth.playNote(A);
-            }
-            if (event.getAction() == MotionEvent.ACTION_UP) {
-                Log.d(this.getClass().getName(), "MotionEvent.ACTION_UP");
-                midiSynth.stopNote(A);
-            }
-        }
-
-        return false;
-    }*/
 
     public void playNote(char noteChar) {
         switch (noteChar) {
@@ -199,6 +188,25 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
     public void setPlay(View v) {
         playMusic(true);
         setIdle();
+    }
+
+    public void setConf(View v) {
+        state = 2;
+
+        allowKeyPresses(true);
+
+        allowSaving(false);
+
+        // append to PW
+
+        //Change icon to stop
+        v.setBackgroundResource(R.drawable.icon_stop);
+        //Disable play - make it unclickable with no image
+        findViewById(R.id.play).setBackgroundResource(0);
+        findViewById(R.id.play).setEnabled(false);
+
+        //Delete the pw you have saved - DO THIS PROPERLY, delete from file
+        ((TextView) findViewById(R.id.notesPlayed)).setText("");
     }
 
     public void setRecord(View v) {
@@ -292,7 +300,6 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
         findViewById(R.id.play).setBackgroundResource(R.drawable.icon_stop);
         allowKeyPresses(false);
         allowSaving(false);
-
         CharSequence notesPlayed = ((TextView) findViewById(R.id.notesPlayed)).getText();
         for (int index = 0; index < notesPlayed.length(); index+=2) {
             playNote(notesPlayed.charAt(index));
@@ -315,4 +322,29 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
         findViewById(R.id.save).setEnabled(b);
     }
     //==========================BUTTON STATE METHODS END===========================
+
+    public void passwordCorrect(){
+        callbackIntent.putExtra("CALLBACK", "true");
+        Log.d("LockScreen", "passwordCorrect");
+        startActivity(callbackIntent);
+    }
+
+    private void passwordIncorrect(){
+
+    }
+
+    static void goToLockScreen(AppCompatActivity app) {
+        Bundle extras = app.getIntent().getExtras();
+        if (extras == null || !extras.getString("CALLBACK").equals("true")) {
+            Intent lockScreenIntent = new Intent(app, CreateUpdate.class);
+            lockScreenIntent.putExtra("lockScreen", true);
+            Intent callbackIntent = new Intent(app, app.getClass());
+            lockScreenIntent.putExtra(LockScreen.CALLBACK_INTENT, callbackIntent);
+            Log.d("LockScreenTest", "Going to lock screen");
+            app.startActivity(lockScreenIntent);
+        }
+        if (extras != null) {
+            extras.clear();
+        }
+    }
 }

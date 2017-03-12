@@ -27,7 +27,7 @@ public class PasswordManager implements Serializable {
     private static HashMap<String, Password> passwords = new HashMap<String, Password>();
     private static AssetManager am;
 
-    private static Password getPassword(String appName){
+    public static Password getPassword(String appName){
         return passwords.get(appName);
     }
 

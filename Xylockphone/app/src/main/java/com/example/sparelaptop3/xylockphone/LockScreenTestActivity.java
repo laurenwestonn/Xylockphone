@@ -9,5 +9,6 @@ public class LockScreenTestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lock_screen_test);
+        CreateUpdate.goToLockScreen(this);
     }
 }
