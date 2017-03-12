@@ -32,6 +32,7 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
     private Note G;
     private String m_Text = "";
     private PasswordManager pwdmgr;
+    private int state = 0; //0 idle, 1 playing, 2 recording
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,14 +58,19 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
         View.OnClickListener declarePressedKey = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Find which note was played. The note is the third character
-                char strNote = getResources().getResourceEntryName(v.getId()).charAt(2);
-                Log.d(TAG, strNote + " was clicked");
+                if(state == 0 | state == 2) {   //Idle or Recording
+                    //Find which note was played. The note is the third character
+                    char strNote = getResources().getResourceEntryName(v.getId()).charAt(2);
+                    Log.d(TAG, strNote + " was clicked");
 
-                //Add to the notes played, the new note played
-                TextView notesPlayed = (TextView) findViewById(R.id.notesPlayed);
-                notesPlayed.setText(notesPlayed.getText() + ((notesPlayed.getText().length() == 0) ? "" : ",") + strNote);
-                playNote(strNote);
+                    playNote(strNote);
+
+                    //Record/save this note
+                    if(state == 2) {
+                        TextView notesPlayed = (TextView) findViewById(R.id.notesPlayed);
+                        notesPlayed.setText(notesPlayed.getText() + ((notesPlayed.getText().length() == 0) ? "" : ",") + strNote);
+                    }
+                }
             }
         };
 
@@ -149,24 +155,22 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
     }
 
     //=================================BUTTON STATE METHODS===========================
+    // 0 - Idle                        1 - Playing                          2 - Recording
     //BUTTON CLICK METHODS=========
     public void onPlayButton(View v) {
-
-        if (findViewById(R.id.play).getBackground().getConstantState() ==
-                getResources().getDrawable(R.drawable.icon_play).getConstantState())
+        if (state == 0)
             setPlay(v); //Start music, disallow key presses, retain pw
-        else if (findViewById(R.id.play).getBackground().getConstantState() ==
-                getResources().getDrawable(R.drawable.icon_stop).getConstantState())
+        else if (state == 1) {
             setIdle(); //Stop music, allow key presses, retain pw
+        }
     }
 
     public void onRecordButton(View v) {
-        if (findViewById(R.id.record).getBackground().getConstantState() ==
-                getResources().getDrawable(R.drawable.icon_record).getConstantState())
+        if (state == 0)
             setRecord(v);   //Stop music if playing, allow key presses, append to PW
-        else if (findViewById(R.id.record).getBackground().getConstantState() ==
-                getResources().getDrawable(R.drawable.icon_stop).getConstantState())
+        else if (state == 2) {
             setIdle();     //Keep music off, allow key presses, retain pw
+        }
     }
 
     public void onSaveButton(View v) {
@@ -177,11 +181,11 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
     //STATE METHODS=========
     public void setPlay(View v) {
         playMusic(true);
+        setIdle();
     }
 
     public void setRecord(View v) {
-
-        playMusic(false);
+        state = 2;
 
         allowKeyPresses(true);
 
@@ -192,25 +196,25 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
         //Change icon to stop
         v.setBackgroundResource(R.drawable.icon_stop);
         //Disable play - make it unclickable with no image
-        findViewById(R.id.record).setBackgroundResource(0);
-        findViewById(R.id.record).setEnabled(false);
+        findViewById(R.id.play).setBackgroundResource(0);
+        findViewById(R.id.play).setEnabled(false);
 
         //Delete the pw you have saved - DO THIS PROPERLY, delete from file
         ((TextView) findViewById(R.id.notesPlayed)).setText("");
     }
 
     public void setIdle() {
-
-        playMusic(false);
-
         allowKeyPresses(true);
 
         allowSaving(true);
 
         //Allow to play
+        findViewById(R.id.play).setEnabled(true);
         findViewById(R.id.play).setBackgroundResource(R.drawable.icon_play);
         //Allow to record
         findViewById(R.id.record).setBackgroundResource(R.drawable.icon_record);
+
+        state = 0;
     }
 
     public void setSave(View v) {
@@ -253,6 +257,8 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
     public void playMusic (boolean b) {
         if(!b)
             return;
+
+        state = 1;
 
         //Music is going to play. Change icon to stop
         findViewById(R.id.play).setBackgroundResource(R.drawable.icon_stop);
