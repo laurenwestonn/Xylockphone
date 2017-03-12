@@ -39,7 +39,7 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
     private Note G;
     private String m_Text = "";
     private PasswordManager pwdmgr;
-    private int state = 0; //0 idle, 1 playing, 2 recording
+    private int state = 0; //0 idle, 1 playing, 2 recording, 3 lock
     private String appName;
     private boolean lockScreen = false;
 
@@ -60,8 +60,9 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
         CharSequence notes = getIntent().getCharSequenceExtra("notes");
         appName = getIntent().getStringExtra("app");
         if (lockScreen) {
-            allowKeyPresses(false);
-            allowSaving(false);
+            allowKeyPresses(true);
+            setConf(true);
+            state = 3;
         }
         else {
             allowKeyPresses(true);
@@ -177,9 +178,16 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
         else if (state == 2) {
             setIdle();     //Keep music off, allow key presses, retain pw
         }
+        else if (state == 3) {
+            int i = 1;
+            // do check on code
+        }
     }
 
     public void onSaveButton(View v) {
+        if (state == 3)
+            ((TextView) findViewById(R.id.notesPlayed)).setText("");
+        else
         //You can only click the save button if you're allowed to save
         setSave(v);
     }
@@ -190,23 +198,11 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
         setIdle();
     }
 
-    public void setConf(View v) {
-        state = 2;
-
-        allowKeyPresses(true);
-
-        allowSaving(false);
-
-        // append to PW
-
+    public void setConf(boolean b) {
         //Change icon to stop
-        v.setBackgroundResource(R.drawable.icon_stop);
-        //Disable play - make it unclickable with no image
-        findViewById(R.id.play).setBackgroundResource(0);
-        findViewById(R.id.play).setEnabled(false);
-
+        findViewById(R.id.record).setBackgroundResource(R.drawable.icon_save);
+        findViewById(R.id.save).setBackgroundResource(R.drawable.icon_record);
         //Delete the pw you have saved - DO THIS PROPERLY, delete from file
-        ((TextView) findViewById(R.id.notesPlayed)).setText("");
     }
 
     public void setRecord(View v) {
