@@ -71,7 +71,8 @@ public class PasswordManager implements Serializable {
             }
             passwords.size();
         } catch (IOException i) {
-            i.printStackTrace();
+            File toDelete = new File(app.getApplicationContext().getFilesDir() + "/passwords.txt");
+            toDelete.delete();
         }
 
     }
