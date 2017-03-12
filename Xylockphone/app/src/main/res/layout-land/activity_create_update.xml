@@ -138,7 +138,7 @@
         android:layout_toLeftOf="@+id/save"
         android:layout_margin="7dp"
         android:background="@drawable/icon_cancel"
-        android:onClick="onCancelButton"/>
+        android:onClick="onCanxButton"/>
 
     <Button
         android:id="@+id/save"
