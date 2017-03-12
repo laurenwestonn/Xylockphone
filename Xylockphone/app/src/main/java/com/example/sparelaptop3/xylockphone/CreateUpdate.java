@@ -48,7 +48,7 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
         Bundle extras = getIntent().getExtras();
         callbackIntent = (Intent) extras.get(CALLBACK_INTENT);
         Log.d("LockScreen", "onCreate");
-        lockScreen = (boolean) getIntent().getSerializableExtra("lockScreen");
+        lockScreen = (boolean) getIntent().getBooleanExtra("lockScreen", false);
 
         //Remove title bar
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
