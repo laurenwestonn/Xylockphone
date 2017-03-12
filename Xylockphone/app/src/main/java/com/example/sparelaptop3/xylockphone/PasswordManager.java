@@ -22,7 +22,7 @@ public class PasswordManager implements Serializable {
 
     public PasswordManager(AppCompatActivity app){
         this.app = app;
-       // loadFromFile(app);
+        loadFromFile(app);
     } //do not instantite
     private static HashMap<String, Password> passwords = new HashMap<String, Password>();
     private static AssetManager am;
@@ -57,7 +57,17 @@ public class PasswordManager implements Serializable {
                 String[] values = line.split(":");
                 String appName = values[0];
                 CharSequence chars = values[1];
-                Instrument i = new Xylophone();
+                String instrument = values[2];
+                Instrument i;
+                switch (instrument) {
+                    case "Xylophone":
+                        i = new Xylophone();
+                        break;
+                    // Other instruments would be added here
+                    default :
+                        i = new Xylophone();
+                        break;
+                }
                 Password p = new Password(i, chars);
                 passwords.put(appName, p);
             }
@@ -75,7 +85,7 @@ public class PasswordManager implements Serializable {
             for (HashMap.Entry<String, Password> password : passwords.entrySet()) {
                 String appName = password.getKey();
                 Password appPass = password.getValue();
-                pw.println(appName + ":" + appPass.getNotes());
+                pw.println(appName + ":" + appPass.getNotes() + ":" + appPass.getInstrument().getName());
             }
             pw.flush();
             File file = new File(app.getApplicationContext().getFilesDir() + "/passwords.txt");
