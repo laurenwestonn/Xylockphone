@@ -94,7 +94,7 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
         View.OnClickListener declarePressedKey = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(state == 0 | state == 2) {   //Idle or Recording
+                if(state == 0 | state == 2 | state == 3) {   //Idle or Recording
                     //Find which note was played. The note is the third character
                     char strNote = getResources().getResourceEntryName(v.getId()).charAt(2);
                     Log.d(TAG, strNote + " was clicked");
@@ -102,7 +102,7 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
                     playNote(strNote);
 
                     //Record/save this note
-                    if(state == 2) {
+                    if(state == 2 || state == 3) {
                         TextView notesPlayed = (TextView) findViewById(R.id.notesPlayed);
                         notesPlayed.setText(notesPlayed.getText() + ((notesPlayed.getText().length() == 0) ? "" : ",") + strNote);
                     }
@@ -179,8 +179,13 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
             setIdle();     //Keep music off, allow key presses, retain pw
         }
         else if (state == 3) {
-            int i = 1;
-            // do check on code
+            CharSequence notes = ((TextView) findViewById(R.id.notesPlayed)).getText();
+            if (pwdmgr.equals(((TextView) findViewById(R.id.notesPlayed)).getText())) {
+                passwordCorrect();
+            }
+            else {
+                passwordIncorrect();
+            }
         }
     }
 
@@ -224,17 +229,19 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
     }
 
     public void setIdle() {
-        allowKeyPresses(true);
+        if (state == 3) {
+            allowKeyPresses(true);
 
-        allowSaving(true);
+            allowSaving(true);
 
-        //Allow to play
-        findViewById(R.id.play).setEnabled(true);
-        findViewById(R.id.play).setBackgroundResource(R.drawable.icon_play);
-        //Allow to record
-        findViewById(R.id.record).setBackgroundResource(R.drawable.icon_record);
+            //Allow to play
+            findViewById(R.id.play).setEnabled(true);
+            findViewById(R.id.play).setBackgroundResource(R.drawable.icon_play);
+            //Allow to record
+            findViewById(R.id.record).setBackgroundResource(R.drawable.icon_record);
 
-        state = 0;
+            state = 0;
+        }
     }
 
     public void setSave(View v) {
@@ -289,12 +296,14 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
         if(!b)
             return;
 
-        state = 1;
+        if (state != 3) {
+            state = 1;
 
-        //Music is going to play. Change icon to stop
-        findViewById(R.id.play).setBackgroundResource(R.drawable.icon_stop);
-        allowKeyPresses(false);
-        allowSaving(false);
+            //Music is going to play. Change icon to stop
+            findViewById(R.id.play).setBackgroundResource(R.drawable.icon_stop);
+            allowKeyPresses(false);
+            allowSaving(false);
+        }
         CharSequence notesPlayed = ((TextView) findViewById(R.id.notesPlayed)).getText();
         for (int index = 0; index < notesPlayed.length(); index+=2) {
             playNote(notesPlayed.charAt(index));
@@ -304,11 +313,12 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
                 e.printStackTrace();
             }
         }
-
-        //Music finished. Change icon to play
-        findViewById(R.id.play).setBackgroundResource(R.drawable.icon_play);
-        allowKeyPresses(true);
-        allowSaving(true);
+        if (state != 3) {
+            //Music finished. Change icon to play
+            findViewById(R.id.play).setBackgroundResource(R.drawable.icon_play);
+            allowKeyPresses(true);
+            allowSaving(true);
+        }
     }
 
     public void allowSaving(boolean b) {
