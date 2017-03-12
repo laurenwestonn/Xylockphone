@@ -139,15 +139,24 @@
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
         android:layout_toEndOf="@+id/record"
-        android:layout_toLeftOf="@+id/save"
         android:layout_toRightOf="@+id/record"
-        android:layout_toStartOf="@+id/save"
         android:gravity="center_vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:text="@string/notesPlayed"
         android:textColor="@android:color/background_light"
         android:textSize="36sp" />
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/notesPlayed"
+        android:layout_margin="7dp"
+        android:background="@drawable/icon_cancel"
+        android:onClick="onCancelButton"
+        android:layout_paddingRight="20dp"
+        android:backgroundTint="@android:color/background_light" />
 
     <Button
         android:id="@+id/save"
@@ -156,6 +165,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/cancel"
         android:layout_margin="7dp"
         android:background="@drawable/icon_save"
         android:onClick="onSaveButton"

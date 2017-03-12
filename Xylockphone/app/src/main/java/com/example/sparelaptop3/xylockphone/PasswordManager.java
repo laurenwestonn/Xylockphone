@@ -36,6 +36,11 @@ public class PasswordManager implements Serializable {
         saveToFile(app);
     }
 
+    static void removePassword(String appName){
+        passwords.remove(appName);
+        saveToFile(app);
+    }
+
     public static HashMap<String, Password> getAll() {
         return passwords;
     }

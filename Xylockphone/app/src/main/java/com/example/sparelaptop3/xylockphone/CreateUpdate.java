@@ -342,6 +342,12 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
 
     }
 
+    private void removePassword(){
+        if (m_Text != null && m_Text.length() > 0){
+            pwdmgr.removePassword(m_Text);
+        }
+    }
+
     static void goToLockScreen(AppCompatActivity app) {
         Bundle extras = app.getIntent().getExtras();
         if (extras == null || !extras.getString("CALLBACK").equals("true")) {
