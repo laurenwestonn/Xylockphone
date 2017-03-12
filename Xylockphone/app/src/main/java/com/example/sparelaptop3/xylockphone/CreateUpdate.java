@@ -218,6 +218,7 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
     public void setConf(boolean b) {
         findViewById(R.id.record).setBackgroundResource(R.drawable.icon_confirm);
         findViewById(R.id.save).setBackgroundResource(R.drawable.icon_cancel);
+        findViewById(R.id.cancel).setBackgroundResource(0);
         //Delete the pw you have saved - DO THIS PROPERLY, delete from file
     }
 
@@ -351,9 +352,16 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
         toast.show();
     }
 
-    private void removePassword(){
-        if (m_Text != null && m_Text.length() > 0){
-            pwdmgr.removePassword(m_Text);
+    public void onCanxButton(View v){
+        Toast toast;
+        if (appName != null && appName.length() > 0){
+            pwdmgr.removePassword(appName);
+            toast = Toast.makeText(CreateUpdate.this, appName + " has been removed", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        else {
+            toast = Toast.makeText(CreateUpdate.this, "Only an existing password can be removed", Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 
