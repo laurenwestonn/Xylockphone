@@ -204,9 +204,8 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
     }
 
     public void setConf(boolean b) {
-        //Change icon to stop
-        findViewById(R.id.record).setBackgroundResource(R.drawable.icon_save);
-        findViewById(R.id.save).setBackgroundResource(R.drawable.icon_record);
+        findViewById(R.id.record).setBackgroundResource(R.drawable.icon_confirm);
+        findViewById(R.id.save).setBackgroundResource(R.drawable.icon_cancel);
         //Delete the pw you have saved - DO THIS PROPERLY, delete from file
     }
 
