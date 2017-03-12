@@ -42,9 +42,23 @@ public class CreateUpdate extends AppCompatActivity /*implements View.OnTouchLis
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_update);
+        Instrument i = (Instrument) getIntent().getSerializableExtra("instrument");
+        CharSequence notes = getIntent().getCharSequenceExtra("notes");
+        String appName = getIntent().getStringExtra("app");
 
         //Get a nice font
         TextView tx = (TextView)findViewById(R.id.notesPlayed);
+        if (notes != null) {
+            StringBuilder str = new StringBuilder(String.valueOf(notes));
+            int idx = str.length() - 1;
+
+            while (idx > 0) {
+                str.insert(idx, ",");
+                idx = idx - 1;
+            }
+
+            tx.setText(str.toString());
+        }
         Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/becca.ttf");
         tx.setTypeface(custom_font);
 

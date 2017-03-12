@@ -26,12 +26,15 @@ public class Display extends AppCompatActivity {
         int size = passwords.size();
         final String[] Apps = new String[size];
         Integer[] instrumentIcons = new Integer[size];
+        final CharSequence[] Notes = new CharSequence[size];
+        final Instrument[] Instrument = new Instrument[size];
         int i = 0;
         for (HashMap.Entry<String, Password> password : passwords.entrySet()) {
             String appName = password.getKey();
             Password appPass = password.getValue();
             Instrument instrument = appPass.getInstrument();
             Class type = instrument.getClass();
+            CharSequence noteSequence = appPass.getNotes();
             String className = type.toString().split("com.example.sparelaptop3.xylockphone.")[1];
             Log.d(DEBUG, className);
             int d = 0;
@@ -43,6 +46,8 @@ public class Display extends AppCompatActivity {
    //         d = R.drawable.guitar;
             Apps[i] = appName;
             instrumentIcons[i] = d;
+            Notes[i] = noteSequence;
+            Instrument[i] = instrument;
             i++;
         }
         ImageList il = new ImageList(Display.this, Apps, instrumentIcons);
@@ -53,6 +58,8 @@ public class Display extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, android.view.View view, int position, long id) {
                 Intent i = new Intent(Display.this, CreateUpdate.class);
                 i.putExtra("app", Apps[position]);
+                i.putExtra("notes", Notes[position]);
+                i.putExtra("instrument", Instrument[position]);
                 startActivity(i);
             }
         });
